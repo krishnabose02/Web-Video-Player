@@ -1,0 +1,38 @@
+<p class='text-center m-2' style="font-size: 2rem;">FreeFlix</p>
+<div class='d-flex justify-content-center'>
+    <div class="card shadow flex-row d-flex justify-content-center p-0 m-2 col-md-6 col-lg-6 col-xl-6 col-sm-9">
+        <input
+            placeholder="what would you like to watch?"
+            type='text'
+            [(ngModel)]='search'
+            (keyup.enter)='searchItem()'
+            class="form-control border-0">
+        <button
+            class="btn btn-success ml-md-3 ml-lg-3 ml-sm-1"
+            (click)='searchItem()'>
+            Search
+        </button>    
+    </div>
+</div>
+<div class='d-flex flex-column m-2 justify-content-start align-items-center' *ngIf='results'>
+    <div class='card mt-2 p-2 col-md-6 col-lg-6 col-xl-6 col-sm-9' *ngFor='let r of results.posts'>
+        <div class='d-flex flex-row justify-content-between'>
+            <div class="p-2">
+                <p style='font-size: 1.4rem;'>{{r.category_name}}</p>
+                <p>{{r.channel_name}}</p>
+            </div>
+            <div class='p-2'>
+                <button
+                    routerLink='/play'
+                    (click)='playContent(r)'
+                    class='btn btn-outline-primary'>
+                    play
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <button class='btn btn-outline-primary' (click)="loadMore()">Load more</button>
+</div>
+<div *ngIf='results && results.posts.length == 0'>No content!</div>
